@@ -6,6 +6,7 @@ import { fetchSurahWithTranslation } from '@/services/quranApi';
 import { ReaderHeader } from './ReaderHeader';
 import { AyahCard } from './AyahCard';
 import { useQuranStore } from '@/store/quranStore';
+import { useAudioPlayer } from '@/hooks/useAudioPlayer';
 import { SURAHS_META } from '@/data/surahs';
 import { useRouter } from 'next/navigation';
 
@@ -28,6 +29,9 @@ export function SurahReader({ surahId }: SurahReaderProps) {
     staleTime: 1000 * 60 * 60,
   });
 
+  /* Pass verses to hook so auto-play next works */
+  const audioPlayer = useAudioPlayer(surah?.verses, surahId);
+
   const meta = SURAHS_META.find((s) => s.id === surahId);
   const prevSurah = surahId > 1 ? SURAHS_META[surahId - 2] : null;
   const nextSurah = surahId < 114 ? SURAHS_META[surahId] : null;
@@ -39,7 +43,7 @@ export function SurahReader({ surahId }: SurahReaderProps) {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center h-full gap-4 text-gray-500">
+      <div className="flex flex-col items-center justify-center h-full gap-4 text-muted-foreground">
         <Loader2 size={32} className="animate-spin text-green-500" />
         <p className="text-sm">
           Loading {meta?.transliteration ?? `Surah ${surahId}`}...
@@ -50,12 +54,12 @@ export function SurahReader({ surahId }: SurahReaderProps) {
 
   if (isError || !surah) {
     return (
-      <div className="flex flex-col items-center justify-center h-full gap-4 text-gray-500 px-6">
+      <div className="flex flex-col items-center justify-center h-full gap-4 text-muted-foreground px-6">
         <AlertCircle size={32} className="text-red-500" />
         <p className="text-sm text-center">
-          Failed to load surah. Please check your connection and try again.
+          Failed to load surah. Please check your connection.
         </p>
-        <p className="text-xs text-gray-600">{String(error)}</p>
+        <p className="text-xs opacity-50">{String(error)}</p>
       </div>
     );
   }
@@ -79,20 +83,21 @@ export function SurahReader({ surahId }: SurahReaderProps) {
             surahId={surahId}
             surahName={surah.transliteration}
             index={index}
+            audioPlayer={audioPlayer}
           />
         ))}
       </div>
 
-      {/* Navigation */}
+      {/* Prev / Next navigation */}
       <div className="flex items-center justify-between px-6 py-8 border-t border-border">
         {prevSurah ? (
           <button
             onClick={() => navigate(prevSurah.id)}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-secondary hover:bg-muted text-foreground transition-all duration-200 text-sm"
-            aria-label={`Previous surah: ${prevSurah.transliteration}`}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-secondary hover:bg-muted text-foreground transition-all text-sm"
+            aria-label={`Previous: ${prevSurah.transliteration}`}
           >
             <ChevronLeft size={16} />
-            <span>{prevSurah.transliteration}</span>
+            {prevSurah.transliteration}
           </button>
         ) : (
           <div />
@@ -101,10 +106,10 @@ export function SurahReader({ surahId }: SurahReaderProps) {
         {nextSurah ? (
           <button
             onClick={() => navigate(nextSurah.id)}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-secondary hover:bg-muted text-foreground transition-all duration-200 text-sm"
-            aria-label={`Next surah: ${nextSurah.transliteration}`}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-secondary hover:bg-muted text-foreground transition-all text-sm"
+            aria-label={`Next: ${nextSurah.transliteration}`}
           >
-            <span>{nextSurah.transliteration}</span>
+            {nextSurah.transliteration}
             <ChevronRight size={16} />
           </button>
         ) : (
