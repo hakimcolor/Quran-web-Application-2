@@ -1,12 +1,11 @@
 'use client';
 import { PrayerTimes } from './PrayerTimes';
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
   Search,
   BookOpen,
-  Bookmark,
   Moon,
   Sun,
   Sunset,
@@ -47,7 +46,7 @@ export function HomePage() {
   };
   const currentTheme = THEMES.find((t) => t.value === appTheme) ?? THEMES[0];
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = (e: FormEvent) => {
     e.preventDefault();
     if (query.trim())
       router.push(`/search?q=${encodeURIComponent(query.trim())}`);
@@ -62,7 +61,7 @@ export function HomePage() {
       <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
         <div className="max-w-6xl mx-auto px-4 h-12 flex items-center justify-between gap-4">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 shrink-0">
+          <Link href="/home" className="flex items-center gap-2 shrink-0">
             <div className="w-7 h-7 rounded-lg bg-green-600 flex items-center justify-center">
               <span className="text-white font-bold text-xs">ق</span>
             </div>
@@ -73,7 +72,10 @@ export function HomePage() {
 
           {/* Nav links */}
           <div className="hidden md:flex items-center gap-5 text-xs text-muted-foreground">
-            <Link href="/" className="hover:text-foreground transition-colors">
+            <Link
+              href="/home"
+              className="hover:text-foreground transition-colors"
+            >
               Home
             </Link>
             <Link
@@ -125,8 +127,8 @@ export function HomePage() {
       {/* ── Hero Section ── */}
       <section className="relative overflow-hidden">
         {/* Dark gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-background/80 to-background pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(76,175,80,0.08)_0%,_transparent_70%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/60 via-background/80 to-background pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(76,175,80,0.08)_0%,transparent_70%)] pointer-events-none" />
 
         <div className="relative max-w-2xl mx-auto px-4 pt-16 pb-12 text-center">
           {/* Title */}
@@ -371,9 +373,9 @@ export function HomePage() {
 
       {/* ── Sadaqah Jariyah ── */}
       <section className="relative py-16 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-black/40 to-background pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-b from-background via-black/40 to-background pointer-events-none" />
         {/* Mosque silhouette hint */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 opacity-10 bg-gradient-to-t from-green-900 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 opacity-10 bg-linear-to-t from-green-900 to-transparent" />
 
         <div className="relative text-center px-4">
           <h2 className="text-2xl font-bold text-foreground mb-4">
@@ -465,24 +467,47 @@ export function HomePage() {
             </ul>
           </div>
 
-          {/* Follow Us */}
+          {/* Contact Us */}
           <div>
             <h4 className="text-xs font-semibold text-foreground mb-3">
-              Follow Us
+              Contact Us
             </h4>
-            <div className="flex gap-2">
-              <a
-                href="#"
-                className="w-7 h-7 rounded-lg bg-secondary border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-green-500/30 transition-colors text-xs font-bold"
-              >
-                f
-              </a>
-              <a
-                href="#"
-                className="w-7 h-7 rounded-lg bg-secondary border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-green-500/30 transition-colors text-xs font-bold"
-              >
-                t
-              </a>
+            <div className="flex flex-col gap-2">
+              {[
+                {
+                  label: 'Portfolio',
+                  href: 'https://hakimcolorportfolio.vercel.app/',
+                },
+                {
+                  label: 'LinkedIn',
+                  href: 'https://www.linkedin.com/in/md-azizul-hakim-b646b22a7',
+                },
+                { label: 'GitHub', href: 'https://github.com/hakimcolor' },
+                { label: 'X (Twitter)', href: 'https://x.com/hakimcolor' },
+                {
+                  label: 'Instagram',
+                  href: 'https://www.instagram.com/hakim.color/',
+                },
+                {
+                  label: 'Facebook',
+                  href: 'https://www.facebook.com/hakimcolorofficial',
+                },
+                {
+                  label: 'WhatsApp',
+                  href: 'https://api.whatsapp.com/send/?phone=8801818777856&text&type=phone_number&app_absent=0',
+                },
+                { label: 'Email', href: 'mailto:hakimcolor777@gmail.com' },
+              ].map(({ label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={href.startsWith('mailto') ? undefined : '_blank'}
+                  rel="noopener noreferrer"
+                  className="text-[11px] text-muted-foreground hover:text-green-400 transition-colors"
+                >
+                  {label}
+                </a>
+              ))}
             </div>
           </div>
         </div>

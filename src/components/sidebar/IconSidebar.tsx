@@ -22,7 +22,7 @@ interface IconSidebarProps {
 }
 
 const NAV_ITEMS = [
-  { id: 'home', icon: Home, label: 'Home', href: '/' },
+  { id: 'home', icon: Home, label: 'Home', href: '/home' },
   { id: 'quran', icon: BookOpen, label: 'Quran', href: '/surah/1' },
   { id: 'bookmarks', icon: Bookmark, label: 'Bookmarks', href: '/bookmarks' },
   { id: 'search', icon: Search, label: 'Search', href: '/search' },
