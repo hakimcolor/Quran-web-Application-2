@@ -10,16 +10,28 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Quran — Read, Listen & Reflect',
+  title: 'Quran Mazid — Read, Listen & Reflect',
   description:
     'A beautiful Quran reading experience with Arabic text, translations, and audio recitation for all 114 surahs.',
-  keywords: ['Quran', 'Islam', 'Arabic', 'Recitation', 'Translation'],
+  keywords: [
+    'Quran',
+    'Islam',
+    'Arabic',
+    'Recitation',
+    'Translation',
+    'Quran Mazid',
+  ],
   openGraph: {
-    title: 'Quran — Read, Listen & Reflect',
+    title: 'Quran Mazid — Read, Listen & Reflect',
     description:
       'Beautiful Quran reading with Arabic text, translations, and audio.',
     type: 'website',
   },
+  icons: {
+    icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
+    apple: [{ url: '/apple-icon.svg', type: 'image/svg+xml' }],
+  },
+  themeColor: '#0f1a0f',
 };
 
 export default function RootLayout({
@@ -35,6 +47,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+        <link rel="apple-touch-icon" href="/apple-icon.svg" />
+        <meta name="theme-color" content="#0f1a0f" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"

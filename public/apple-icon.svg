@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" fill="none">
+  <rect width="180" height="180" rx="40" fill="#0f1a0f"/>
+
+  <!-- Open book left page -->
+  <path d="M22 50 C22 44 28 42 34 43.5 L84 58 L84 138 L34 122 C28 120 22 116 22 110 Z"
+        fill="#1a2e1a" stroke="#4caf50" stroke-width="3"/>
+
+  <!-- Open book right page -->
+  <path d="M158 50 C158 44 152 42 146 43.5 L96 58 L96 138 L146 122 C152 120 158 116 158 110 Z"
+        fill="#1a2e1a" stroke="#4caf50" stroke-width="3"/>
+
+  <!-- Book spine -->
+  <rect x="82" y="56" width="16" height="84" rx="3" fill="#4caf50"/>
+
+  <!-- Lines left page -->
+  <line x1="34" y1="74" x2="78" y2="77" stroke="#4caf50" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+  <line x1="34" y1="86" x2="78" y2="89" stroke="#4caf50" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+  <line x1="34" y1="98" x2="78" y2="101" stroke="#4caf50" stroke-width="2.5" stroke-linecap="round" opacity="0.4"/>
+  <line x1="34" y1="110" x2="78" y2="113" stroke="#4caf50" stroke-width="2.5" stroke-linecap="round" opacity="0.3"/>
+
+  <!-- Lines right page -->
+  <line x1="102" y1="77" x2="146" y2="74" stroke="#4caf50" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+  <line x1="102" y1="89" x2="146" y2="86" stroke="#4caf50" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+  <line x1="102" y1="101" x2="146" y2="98" stroke="#4caf50" stroke-width="2.5" stroke-linecap="round" opacity="0.4"/>
+  <line x1="102" y1="113" x2="146" y2="110" stroke="#4caf50" stroke-width="2.5" stroke-linecap="round" opacity="0.3"/>
+
+  <!-- Crescent -->
+  <path d="M90 14 C78 14 70 22 70 32 C70 42 78 50 90 50 C82 50 75 44 75 34 C75 24 82 18 90 18 Z"
+        fill="#4caf50"/>
+  <circle cx="90" cy="32" r="10" fill="none" stroke="#4caf50" stroke-width="4"/>
+
+  <!-- Star -->
+  <polygon points="108,16 110,22 116,22 111,26 113,32 108,28 103,32 105,26 100,22 106,22"
+           fill="#4caf50"/>
+</svg>

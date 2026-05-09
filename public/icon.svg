@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="32" fill="#0f1a0f"/>
+
+  <!-- Open book left page -->
+  <path d="M10 18 C10 16 12 15 14 15.5 L30 20 L30 48 L14 43 C12 42.5 10 41 10 39 Z"
+        fill="#1a2e1a" stroke="#4caf50" stroke-width="1.2"/>
+
+  <!-- Open book right page -->
+  <path d="M54 18 C54 16 52 15 50 15.5 L34 20 L34 48 L50 43 C52 42.5 54 41 54 39 Z"
+        fill="#1a2e1a" stroke="#4caf50" stroke-width="1.2"/>
+
+  <!-- Book spine center -->
+  <rect x="29.5" y="19" width="5" height="30" rx="1" fill="#4caf50" opacity="0.9"/>
+
+  <!-- Arabic text lines on left page -->
+  <line x1="15" y1="26" x2="27" y2="27.5" stroke="#4caf50" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+  <line x1="15" y1="30" x2="27" y2="31.5" stroke="#4caf50" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+  <line x1="15" y1="34" x2="27" y2="35.5" stroke="#4caf50" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+  <line x1="15" y1="38" x2="27" y2="39.5" stroke="#4caf50" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+
+  <!-- Arabic text lines on right page -->
+  <line x1="37" y1="27.5" x2="49" y2="26" stroke="#4caf50" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+  <line x1="37" y1="31.5" x2="49" y2="30" stroke="#4caf50" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+  <line x1="37" y1="35.5" x2="49" y2="34" stroke="#4caf50" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+  <line x1="37" y1="39.5" x2="49" y2="38" stroke="#4caf50" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+
+  <!-- Crescent moon top center -->
+  <path d="M32 6 C28 6 25 9 25 12.5 C25 16 28 19 32 19 C29 19 26.5 17 26.5 13.5 C26.5 10 29 8 32 8 Z"
+        fill="#4caf50"/>
+  <circle cx="32" cy="13" r="3.5" fill="none" stroke="#4caf50" stroke-width="1.5"/>
+
+  <!-- Star next to crescent -->
+  <polygon points="38,8 38.6,10 40.5,10 39,11.2 39.6,13 38,11.8 36.4,13 37,11.2 35.5,10 37.4,10"
+           fill="#4caf50" opacity="0.9"/>
+</svg>
