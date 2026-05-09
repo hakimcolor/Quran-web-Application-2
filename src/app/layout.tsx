@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { Providers } from '@/components/layout/Providers';
@@ -31,6 +31,9 @@ export const metadata: Metadata = {
     icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
     apple: [{ url: '/apple-icon.svg', type: 'image/svg+xml' }],
   },
+};
+
+export const viewport: Viewport = {
   themeColor: '#0f1a0f',
 };
 
@@ -49,7 +52,6 @@ export default function RootLayout({
       <head>
         <link rel="icon" type="image/svg+xml" href="/icon.svg" />
         <link rel="apple-touch-icon" href="/apple-icon.svg" />
-        <meta name="theme-color" content="#0f1a0f" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
