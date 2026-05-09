@@ -58,7 +58,7 @@ export default function BookmarksPage() {
                     <button
                       onClick={() => removeBookmark(bm.surahId, bm.verseId)}
                       aria-label="Remove bookmark"
-                      className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-500 hover:text-red-400 hover:bg-red-500/10 transition-all"
+                      className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-500 hover:text-red-400 hover:bg-red-500/10 transition-all cursor-pointer"
                     >
                       <Trash2 size={15} />
                     </button>
