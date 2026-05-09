@@ -57,26 +57,28 @@ export function IconSidebar({ onSettingsToggle }: IconSidebarProps) {
           const active = isActive(href);
           return (
             <Tooltip key={id}>
-              <TooltipTrigger asChild>
-                <Link
-                  href={href}
-                  aria-label={label}
-                  aria-current={active ? 'page' : undefined}
-                  className={cn(
-                    'w-full flex items-center justify-center h-11 rounded-xl transition-all duration-200 relative',
-                    active
-                      ? 'bg-green-500/15 text-green-400'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
-                  )}
-                >
-                  {active && (
-                    <motion.div
-                      layoutId="activeIndicator"
-                      className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-green-500 rounded-r-full"
-                    />
-                  )}
-                  <Icon size={20} strokeWidth={active ? 2 : 1.5} />
-                </Link>
+              <TooltipTrigger
+                className={cn(
+                  'w-full flex items-center justify-center h-11 rounded-xl transition-all duration-200 relative cursor-pointer',
+                  active
+                    ? 'bg-green-500/15 text-green-400'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
+                )}
+                render={
+                  <Link
+                    href={href}
+                    aria-label={label}
+                    aria-current={active ? 'page' : undefined}
+                  />
+                }
+              >
+                {active && (
+                  <motion.div
+                    layoutId="activeIndicator"
+                    className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-green-500 rounded-r-full"
+                  />
+                )}
+                <Icon size={20} strokeWidth={active ? 2 : 1.5} />
               </TooltipTrigger>
               <TooltipContent
                 side="right"
@@ -92,14 +94,12 @@ export function IconSidebar({ onSettingsToggle }: IconSidebarProps) {
       {/* Bottom: settings + support */}
       <div className="flex flex-col items-center gap-1 w-full px-2">
         <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              onClick={() => onSettingsToggle?.()}
-              aria-label="Settings"
-              className="w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-all"
-            >
-              <Settings size={20} strokeWidth={1.5} />
-            </button>
+          <TooltipTrigger
+            onClick={() => onSettingsToggle?.()}
+            aria-label="Settings"
+            className="w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-all cursor-pointer"
+          >
+            <Settings size={20} strokeWidth={1.5} />
           </TooltipTrigger>
           <TooltipContent
             side="right"
@@ -110,14 +110,11 @@ export function IconSidebar({ onSettingsToggle }: IconSidebarProps) {
         </Tooltip>
 
         <Tooltip>
-          <TooltipTrigger asChild>
-            <Link
-              href="/support"
-              aria-label="Support Us"
-              className="w-10 h-10 rounded-xl flex items-center justify-center text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 transition-all"
-            >
-              <Heart size={18} strokeWidth={1.5} />
-            </Link>
+          <TooltipTrigger
+            className="w-10 h-10 rounded-xl flex items-center justify-center text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 transition-all cursor-pointer"
+            render={<Link href="/support" aria-label="Support Us" />}
+          >
+            <Heart size={18} strokeWidth={1.5} />
           </TooltipTrigger>
           <TooltipContent
             side="right"

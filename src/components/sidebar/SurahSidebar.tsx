@@ -55,7 +55,7 @@ export function SurahSidebar({ onSelect }: SurahSidebarProps) {
             key={t}
             onClick={() => setActiveTab(t)}
             className={cn(
-              'flex-1 py-2.5 text-xs font-medium transition-colors',
+              'flex-1 py-2.5 text-xs font-medium transition-colors cursor-pointer',
               activeTab === t
                 ? 'text-foreground border-b-2 border-green-500'
                 : 'text-muted-foreground hover:text-foreground'
@@ -110,7 +110,7 @@ export function SurahSidebar({ onSelect }: SurahSidebarProps) {
                   aria-label={`Surah ${surah.transliteration}`}
                   aria-current={active ? 'page' : undefined}
                   className={cn(
-                    'w-full flex items-center gap-2.5 px-3 py-2 text-left transition-all duration-150',
+                    'w-full flex items-center gap-2.5 px-3 py-2 text-left transition-all duration-150 cursor-pointer',
                     active
                       ? 'bg-green-500/10 border-l-2 border-green-500'
                       : 'hover:bg-secondary border-l-2 border-transparent'
