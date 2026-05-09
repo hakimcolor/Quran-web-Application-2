@@ -107,7 +107,7 @@ export const AyahCard = memo(function AyahCard({
           onClick={handlePlay}
           aria-label={playing ? 'Pause' : 'Play verse ' + verse.verse_number}
           className={cn(
-            'w-7 h-7 rounded-lg flex items-center justify-center transition-all',
+            'w-7 h-7 rounded-lg flex items-center justify-center transition-all cursor-pointer',
             active
               ? 'bg-green-500/20 text-green-400 hover:bg-green-500/30'
               : 'bg-secondary text-muted-foreground hover:text-foreground hover:bg-muted'
@@ -131,7 +131,7 @@ export const AyahCard = memo(function AyahCard({
               : 'Bookmark verse ' + verse.verse_number
           }
           className={cn(
-            'w-7 h-7 rounded-lg flex items-center justify-center transition-all',
+            'w-7 h-7 rounded-lg flex items-center justify-center transition-all cursor-pointer',
             bookmarked
               ? 'bg-green-500/20 text-green-400 hover:bg-green-500/30'
               : 'bg-secondary text-muted-foreground hover:text-foreground hover:bg-muted'

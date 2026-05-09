@@ -47,44 +47,30 @@ export function PrayerTimes() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    /* Get coords then fetch prayer times */
     navigator.geolocation?.getCurrentPosition(
       async ({ coords }) => {
         try {
-          const today = new Date();
-          const dd = String(today.getDate()).padStart(2, '0');
-          const mm = String(today.getMonth() + 1).padStart(2, '0');
-          const yyyy = today.getFullYear();
-
           const res = await fetch(
-            `https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=${coords.latitude}&longitude=${coords.longitude}&method=2`
+            `/api/prayer-times?lat=${coords.latitude}&lng=${coords.longitude}`
           );
           const json = await res.json();
-          const timings: Timings = json.data.timings;
-          const city = json.data.meta.timezone ?? 'Your Location';
-
-          setData({ timings, city, date: `${dd}/${mm}/${yyyy}` });
+          setData({ timings: json.timings, city: json.timezone, date: '' });
         } catch {
           setError('Could not load prayer times.');
         } finally {
           setLoading(false);
         }
       },
-      () => {
-        /* Fallback: use Mecca coordinates */
-        fetch(
-          'https://api.aladhan.com/v1/timingsByCity?city=Mecca&country=SA&method=4'
-        )
-          .then((r) => r.json())
-          .then((json) => {
-            setData({
-              timings: json.data.timings,
-              city: 'Mecca (default)',
-              date: '',
-            });
-          })
-          .catch(() => setError('Could not load prayer times.'))
-          .finally(() => setLoading(false));
+      async () => {
+        try {
+          const res = await fetch('/api/prayer-times');
+          const json = await res.json();
+          setData({ timings: json.timings, city: 'Mecca (default)', date: '' });
+        } catch {
+          setError('Could not load prayer times.');
+        } finally {
+          setLoading(false);
+        }
       }
     );
   }, []);

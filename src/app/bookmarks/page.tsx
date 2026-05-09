@@ -51,7 +51,7 @@ export default function BookmarksPage() {
                         router.push(`/surah/${bm.surahId}#verse-${bm.verseId}`)
                       }
                       aria-label="Go to verse"
-                      className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-500 hover:text-green-400 hover:bg-green-500/10 transition-all"
+                      className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-500 hover:text-green-400 hover:bg-green-500/10 transition-all cursor-pointer"
                     >
                       <ArrowRight size={15} />
                     </button>

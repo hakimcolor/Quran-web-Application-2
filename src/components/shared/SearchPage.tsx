@@ -3,7 +3,7 @@ import { useState, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Loader2, BookOpen } from 'lucide-react';
-import { fetchSurahWithTranslation } from '@/services/quranApi';
+
 import { SURAHS_META } from '@/data/surahs';
 import { SearchResult } from '@/types';
 import { SearchBar } from './SearchBar';
@@ -31,7 +31,6 @@ export function SearchPage() {
     ).slice(0, 6);
   }, [query]);
 
-  /* Full search across all 114 surahs */
   const handleSearch = useCallback(async () => {
     const q = query.trim();
     if (!q) return;
@@ -41,40 +40,24 @@ export function SearchPage() {
     setResults([]);
     setProgress(0);
 
-    const found: SearchResult[] = [];
-    const qLower = q.toLowerCase();
-    let done = 0;
+    try {
+      // small delay so progress bar appears
+      const interval = setInterval(() => {
+        setProgress((p) => Math.min(p + 5, 90));
+      }, 200);
 
-    await Promise.all(
-      SURAHS_META.map(async (meta) => {
-        try {
-          const surah = await fetchSurahWithTranslation(meta.id);
-          surah.verses?.forEach((verse) => {
-            if (
-              verse.text.includes(q) ||
-              verse.translation.toLowerCase().includes(qLower)
-            ) {
-              found.push({
-                surahId: meta.id,
-                surahName: meta.name,
-                surahTransliteration: meta.transliteration,
-                verseNumber: verse.verse_number,
-                verseKey: verse.verse_key,
-                arabicText: verse.text,
-                translation: verse.translation,
-              });
-            }
-          });
-        } catch {
-          /* skip failed */
-        }
-        done++;
-        setProgress(Math.round((done / SURAHS_META.length) * 100));
-      })
-    );
+      const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`);
+      clearInterval(interval);
+      setProgress(100);
 
-    setResults(found.slice(0, 100));
-    setIsSearching(false);
+      if (!res.ok) throw new Error('Search failed');
+      const data = await res.json();
+      setResults(data.results ?? []);
+    } catch {
+      setResults([]);
+    } finally {
+      setIsSearching(false);
+    }
   }, [query]);
 
   const navigateToVerse = (surahId: number) => {
