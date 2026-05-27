@@ -204,3 +204,58 @@ const DAILY_VERSES = [
     id: 3,
   },
 ];
+
+export function HomePage() {
+  const router = useRouter();
+  const [query, setQuery] = useState('');
+  const [gridTab, setGridTab] = useState<GridTab>('Surah');
+  const [showAll, setShowAll] = useState(false);
+  const [activeVerse, setActiveVerse] = useState(0);
+  const { appTheme, setAppTheme } = useSettingsStore();
+
+  const cycleTheme = () => {
+    const idx = THEMES.findIndex((t) => t.value === appTheme);
+    setAppTheme(THEMES[(idx + 1) % THEMES.length].value);
+  };
+  const currentTheme = THEMES.find((t) => t.value === appTheme) ?? THEMES[0];
+
+  const handleSearch = (e: FormEvent) => {
+    e.preventDefault();
+    if (query.trim()) router.push(`/search?q=${encodeURIComponent(query.trim())}`);
+  };
+
+  const visibleSurahs = showAll ? SURAHS_META : SURAHS_META.slice(0, 12);
+
+  return (
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+
+      {/* ── Top Navigation ── */}
+      <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
+          <Link href="/home" className="flex items-center gap-2.5 shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-green-600 flex items-center justify-center shadow-lg shadow-green-900/30">
+              <span className="text-white font-bold text-sm">ق</span>
+            </div>
+            <span className="font-extrabold text-base hidden sm:block tracking-tight" style={{ fontFamily: 'var(--font-jakarta)' }}>
+              Quran Mazid
+            </span>
+          </Link>
+          <div className="hidden md:flex items-center gap-6 text-sm text-muted-foreground font-medium">
+            <Link href="/home"      className="hover:text-foreground transition-colors">Home</Link>
+            <Link href="/surah/1"   className="hover:text-foreground transition-colors">Read Quran</Link>
+            <Link href="/bookmarks" className="hover:text-foreground transition-colors">Bookmarks</Link>
+            <Link href="/search"    className="hover:text-foreground transition-colors">Search</Link>
+          </div>
+          <div className="flex items-center gap-2">
+            <Link href="/search" aria-label="Search" className="w-9 h-9 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors">
+              <Search size={17} />
+            </Link>
+            <button onClick={cycleTheme} aria-label="Toggle theme" className="w-9 h-9 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer">
+              {currentTheme.icon}
+            </button>
+            <Link href="/support" className="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-xl bg-green-500 hover:bg-green-600 text-white text-sm font-bold transition-colors">
+              Support <Heart size={13} />
+            </Link>
+          </div>
+        </div>
+      </nav>
