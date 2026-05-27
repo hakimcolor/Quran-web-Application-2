@@ -417,3 +417,77 @@ export function HomePage() {
           </div>
         </section>
       </Reveal>
+
+      {/* ── Features Grid (NEW) ── */}
+      <Reveal>
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-14">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-3" style={{ fontFamily: 'var(--font-jakarta)' }}>
+              Everything you need to connect with the Quran
+            </h2>
+            <p className="text-muted-foreground text-sm sm:text-base max-w-xl mx-auto">
+              A complete Quran experience — read, listen, search and reflect, all in one place.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {FEATURES.map((f, i) => (
+              <motion.div key={f.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }} transition={{ delay: i * 0.08, duration: 0.5 }}
+                className="p-5 rounded-2xl bg-card border border-border hover:border-green-500/30 transition-all group">
+                <div className="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center mb-4 group-hover:bg-green-500/20 transition-colors">
+                  {f.icon}
+                </div>
+                <h3 className="text-sm font-bold mb-1.5">{f.title}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+      </Reveal>
+
+      {/* ── Surah Grid ── */}
+      <Reveal>
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-12">
+          <div className="flex items-center justify-between mb-5">
+            <h2 className="text-xl font-extrabold tracking-tight" style={{ fontFamily: 'var(--font-jakarta)' }}>All Surahs</h2>
+            <div className="flex items-center gap-1 bg-secondary rounded-xl p-1">
+              {(['Surah', 'Juz', 'Page'] as GridTab[]).map((t) => (
+                <button key={t} onClick={() => setGridTab(t)}
+                  className={cn('px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors cursor-pointer',
+                    gridTab === t ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground')}>
+                  {t}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border rounded-2xl overflow-hidden border border-border">
+            {visibleSurahs.map((surah, i) => (
+              <motion.div key={surah.id} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
+                viewport={{ once: true }} transition={{ delay: Math.min(i * 0.02, 0.3) }}>
+                <Link href={`/surah/${surah.id}`}
+                  className="flex items-center gap-3 px-4 py-3.5 bg-background hover:bg-secondary/60 transition-colors group">
+                  <span className="shrink-0 w-9 h-9 rounded-xl bg-secondary flex items-center justify-center text-sm font-bold text-muted-foreground group-hover:bg-green-500/10 group-hover:text-green-400 transition-colors">
+                    {surah.id}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold truncate">{surah.transliteration}</p>
+                    <p className="text-xs text-muted-foreground truncate">{surah.translation}</p>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <p className="text-base text-muted-foreground" dir="rtl" lang="ar" style={{ fontFamily: "'Noto Naskh Arabic', serif" }}>{surah.name}</p>
+                    <p className="text-xs text-muted-foreground">{surah.total_verses}</p>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+          {!showAll && (
+            <div className="text-center mt-5">
+              <button onClick={() => setShowAll(true)}
+                className="px-6 py-2.5 rounded-xl bg-secondary border border-border text-sm font-semibold text-muted-foreground hover:text-foreground hover:border-green-500/30 transition-colors cursor-pointer">
+                Show All 114 Surahs ↓
+              </button>
+            </div>
+          )}
+        </section>
+      </Reveal>
