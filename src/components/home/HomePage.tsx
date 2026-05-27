@@ -259,3 +259,161 @@ export function HomePage() {
           </div>
         </div>
       </nav>
+
+      {/* ── Hero ── */}
+      <section className="relative overflow-hidden">
+        {/* animated water-like blobs */}
+        <div className="absolute inset-0 bg-linear-to-b from-black/60 via-background/80 to-background pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(76,175,80,0.08)_0%,transparent_70%)] pointer-events-none" />
+        <motion.div
+          className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-green-500/5 blur-3xl pointer-events-none"
+          animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0.7, 0.4] }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          className="absolute -bottom-20 -right-20 w-80 h-80 rounded-full bg-green-400/5 blur-3xl pointer-events-none"
+          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+        />
+
+        <div className="relative max-w-3xl mx-auto px-4 sm:px-6 pt-20 pb-16 text-center">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-bold mb-6 tracking-widest uppercase">
+            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+            Read · Listen · Reflect
+          </motion.div>
+
+          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] mb-4"
+            style={{ fontFamily: 'var(--font-jakarta)' }}>
+            Quran<br /><span className="text-green-400">Mazid</span>
+          </motion.h1>
+
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-muted-foreground text-lg sm:text-xl mb-10 max-w-lg mx-auto leading-relaxed font-medium">
+            Read, Listen and Learn The Holy Quran — beautifully designed for every Muslim.
+          </motion.p>
+
+          <motion.form initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
+            onSubmit={handleSearch} className="relative max-w-lg mx-auto mb-8">
+            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
+            <input type="text" value={query} onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search surah or verse..."
+              className="w-full bg-secondary border border-border rounded-2xl pl-11 pr-24 py-3.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-green-500/50 transition-colors" />
+            <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 rounded-xl bg-green-500 hover:bg-green-600 text-white text-sm font-bold transition-colors cursor-pointer">
+              Search
+            </button>
+          </motion.form>
+
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.4 }}
+            className="flex items-center justify-center gap-2 flex-wrap mb-10">
+            {[{ label: 'Al-Baqara', id: 2 }, { label: 'Yaseen', id: 36 }, { label: 'Al-Mulk', id: 67 }, { label: 'Al-Kahf', id: 18 }].map((s) => (
+              <Link key={s.id} href={`/surah/${s.id}`}
+                className="px-4 py-1.5 rounded-full bg-secondary border border-border text-sm font-medium text-muted-foreground hover:text-foreground hover:border-green-500/40 transition-colors">
+                {s.label}
+              </Link>
+            ))}
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.5 }}>
+            <Link href="/surah/1"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl bg-green-500 hover:bg-green-600 text-white text-base font-bold transition-all shadow-lg shadow-green-900/30 hover:shadow-green-900/50 hover:-translate-y-0.5">
+              <Play size={16} fill="white" /> Start Reading Al-Fatiha
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── Stats Bar ── */}
+      <Reveal>
+        <section className="border-y border-border bg-card/50">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {STATS.map((s, i) => (
+              <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+                className="text-center">
+                <p className="text-3xl font-extrabold text-green-400" style={{ fontFamily: 'var(--font-jakarta)' }}>{s.value}</p>
+                <p className="text-xs text-muted-foreground mt-1 font-medium">{s.label}</p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+      </Reveal>
+
+      {/* ── Prayer Times ── */}
+      <Reveal className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+        <PrayerTimes />
+      </Reveal>
+
+      {/* ── Daily Verse ── */}
+      <Reveal>
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-12">
+          <div className="flex items-center justify-between mb-5">
+            <h2 className="text-xl font-extrabold tracking-tight" style={{ fontFamily: 'var(--font-jakarta)' }}>
+              ✨ Verse of the Day
+            </h2>
+            <div className="flex gap-1">
+              {DAILY_VERSES.map((_, i) => (
+                <button key={i} onClick={() => setActiveVerse(i)}
+                  className={cn('w-2 h-2 rounded-full transition-all cursor-pointer', i === activeVerse ? 'bg-green-400 w-5' : 'bg-border hover:bg-muted-foreground')} />
+              ))}
+            </div>
+          </div>
+          <motion.div key={activeVerse} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }}
+            className="relative rounded-2xl bg-card border border-border overflow-hidden p-6 sm:p-10">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-green-500/0 via-green-500 to-green-500/0" />
+            <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-green-500/5 blur-2xl pointer-events-none" />
+            <p className="text-3xl sm:text-4xl text-right text-foreground leading-loose mb-6 font-medium"
+              dir="rtl" lang="ar" style={{ fontFamily: "'Noto Naskh Arabic', serif" }}>
+              {DAILY_VERSES[activeVerse].arabic}
+            </p>
+            <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-4 italic">
+              &ldquo;{DAILY_VERSES[activeVerse].translation}&rdquo;
+            </p>
+            <div className="flex items-center justify-between flex-wrap gap-3">
+              <span className="text-xs text-green-400 font-semibold bg-green-500/10 px-3 py-1 rounded-full">
+                {DAILY_VERSES[activeVerse].ref}
+              </span>
+              <Link href={`/surah/${DAILY_VERSES[activeVerse].id}`}
+                className="text-xs text-muted-foreground hover:text-green-400 transition-colors font-medium flex items-center gap-1">
+                Read full surah <ChevronRight size={13} />
+              </Link>
+            </div>
+          </motion.div>
+        </section>
+      </Reveal>
+
+      {/* ── Collection Row ── */}
+      <Reveal>
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-10">
+          <div className="flex items-center justify-between mb-5">
+            <h2 className="text-xl font-extrabold tracking-tight" style={{ fontFamily: 'var(--font-jakarta)' }}>Collection</h2>
+            <div className="flex items-center gap-1 text-xs text-muted-foreground">
+              <span className="px-2.5 py-1 rounded-lg bg-secondary border border-border font-semibold">Last Reads</span>
+              <span className="px-2.5 py-1 rounded-lg hover:bg-secondary cursor-pointer transition-colors">Bookmarks</span>
+            </div>
+          </div>
+          <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+            {FEATURED.map((id, i) => {
+              const s = SURAHS_META.find((x) => x.id === id)!;
+              return (
+                <motion.div key={id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }} transition={{ delay: i * 0.07 }}>
+                  <Link href={`/surah/${id}`}
+                    className="shrink-0 w-32 p-4 rounded-2xl bg-card border border-border hover:border-green-500/30 hover:bg-secondary/50 transition-all group block">
+                    <div className="w-9 h-9 rounded-xl bg-green-500/10 flex items-center justify-center mb-3 group-hover:bg-green-500/20 transition-colors">
+                      <BookOpen size={15} className="text-green-500" />
+                    </div>
+                    <p className="text-sm font-semibold truncate">{s.transliteration}</p>
+                    <p className="text-xs text-muted-foreground truncate mt-0.5">{s.translation}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{s.total_verses} verses</p>
+                  </Link>
+                </motion.div>
+              );
+            })}
+            <button className="shrink-0 w-9 self-center flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
+              <ChevronRight size={20} />
+            </button>
+          </div>
+        </section>
+      </Reveal>
